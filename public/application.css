@@ -1,0 +1,47 @@
+body {
+    font-family: sans-serif;
+}
+
+.container {
+    height: 600px;
+    width: 1000px;
+    position: absolute;
+    background: #acccaa;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.block {
+    width: 49%;
+    float: left;
+    height: 80%;
+}
+
+h1 {
+    text-align: center;
+    border-bottom: solid thin black;
+}
+
+.column {
+    margin: 0 5% 20px 5%;
+}
+
+input {
+    width: 100%;
+    height: 30px;
+    font-family: sans-serif;
+}
+
+.output {
+    overflow-y: auto;
+}
+
+li {
+    border-bottom: solid thin black;
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+}

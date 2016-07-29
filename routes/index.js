@@ -1,23 +1,34 @@
 var express = require('express');
 var router = express.Router();
+var memored = require('memored');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.sendFile('home.html', { root: './public' });
 });
 
-/* GET home page. */
-router.get('/test', function(req, res, next) {
-    if (!req.session.asd) {
-        req.session.asd = 0;
-    }
-    ++req.session.asd;
-    req.session.save(function() {
-        res.jsonp({
-            data: 'john doe is smartest!',
-            pid: process.pid,
-            sessionId: req.cookies['connect.sid']
-        });
+/* GET all to do items */
+router.get('/get-list', function(req, res, next) {
+    console.log('currently serving process id' + process.pid);
+    memored.read('todo-list', function(err, value) {
+        res.json(value);
+    });
+});
+
+/* POST - save new to do item. */
+router.post('/add-item', function(req, res, next) {
+
+    memored.read('todo-list', function(err, value) {
+        if (!value) {
+            memored.store('todo-list', [req.body], function() {
+                res.json(req.body);
+            });
+        } else {
+            value.push(req.body);
+            memored.store('todo-list', value, function() {
+                res.json(req.body);
+            });
+        }
     });
 });
 
